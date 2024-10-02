@@ -666,6 +666,10 @@ export class DrawnObjectBase {
     // our parent.
     public damageArea(xv: number, yv : number, wv : number, hv : number) : void {
         //=== YOUR CODE HERE ===
+        // If parent exist, pass damage report up tree 
+        if (this.parent) this.parent._damageFromChild(this, xv, yv, wv, hv);
+        
+    
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -689,7 +693,13 @@ export class DrawnObjectBase {
                                xInChildCoords: number, yInChildCoords: number, 
                                wv : number, hv: number) : void 
     {
-            //=== YOUR CODE HERE ===
+        //=== YOUR CODE HERE ===
+        // Convert child to local coords
+        const xLocal = child.x + xInChildCoords;
+        const yLocal = child.y + yInChildCoords;
+
+        // If parent exist, pass damage report up tree 
+        if (this.parent) this.parent._damageFromChild(this, xLocal, yLocal, wv, hv);
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
