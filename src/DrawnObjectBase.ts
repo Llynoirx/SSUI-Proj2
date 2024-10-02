@@ -113,6 +113,8 @@ export class DrawnObjectBase {
              // that could affect the display
 
             //=== YOUR CODE HERE ===
+            this.x = v;
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }    
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -122,6 +124,10 @@ export class DrawnObjectBase {
     public get y() : number {return this._y;}
     public set y(v : number) {
         //=== YOUR CODE HERE ===
+        if (v !== this.y) {
+           this.y = v;
+           this.damageArea(this.x, this.y, this.w, this.h);
+       }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -139,7 +145,11 @@ export class DrawnObjectBase {
     protected _w : number = 42;
     public get w() : number {return this._w;}
     public set w(v : number) {
-            //=== YOUR CODE HERE ===
+        //=== YOUR CODE HERE ===
+        if (v !== this.w) {
+            this.w = v;
+            this.damageArea(this.x, this.y, this.w, this.h);
+        }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -149,6 +159,7 @@ export class DrawnObjectBase {
     public get wConfig() : SizeConfigLiteral {return this._wConfig;}
     public set wConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
+
     }
         
     public get naturalW() : number {return this._wConfig.nat;}
