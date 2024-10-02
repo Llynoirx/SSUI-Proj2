@@ -236,6 +236,8 @@ export class DrawnObjectBase {
     public get visible() : boolean {return this._visible;}
     public set visible(v : boolean) {
             //=== YOUR CODE HERE ===
+            if (v !== this.visible) this.visible = v;
+        
     }
 
     //-------------------------------------------------------------------
