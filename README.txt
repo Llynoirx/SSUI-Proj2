@@ -28,6 +28,32 @@ FILES
         10. damageArea(): Declare display in local damaged (no longer correct); have it redrawn at next opportunity
         11. _damageFromChild(): Get damage report from child obj: local coords, corresponding damage up tree via parent
 
+- TopObject.ts: Root/top obj of drawing obj tree
+    - drawing, damage mangement, layout, redraw processes happen here
+    - TODO: 
+        1. _drawSelfOnly(): Clear canvas behind children drawn 
+        2. layoutAndDrawAll(): Invoke layout + redraw of tree
+        3. damageArea(): override damage routine
+
+- TextObject.ts: Display single text string on one line
+    - TODO: 
+        1. set text 
+        2. set font 
+        3. set padding 
+        4. _recalcSize(): recalculate obj size based on text size
+        5. _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
+
+- FilledObject.ts: Fill bounding box w/ color
+    - TODO: 
+        1. override set w to enforce fixed size
+        2. override set h to enforce fixed size
+        3. _drawSelfOnly(): Draw filled rectangle content for obj 
+
+- Strut.ts: Put btwn content objs of row/col by providing fixed spacing; no drawing output
+    - TODO: 
+    1. override set w to enforce fixed size
+    2. override set h to enforce fixed size
+
 - Column.ts: Column layout to work w/ springs and struts
     - height inputted (fixed)
     - width automatically set (elastic)
@@ -57,28 +83,14 @@ FILES
     - _startLoad(): Assuming have url and added callback ftns for load notifs, start loading img obj encapsulates
     - reload(): reload context 
 
-Err.ts: handles exceptions through the following:
-- silent: ignore error
-- message: print exception message to console log
-- full_mesage: print exc message + stack trace to console log
-- throw: rethrow exception 
+- SizeConfig.ts: Size config obj (min, nat, max)
 
-FilledObject.ts: Fill bounding box w/ color
-TODO: 
-    1. override set w to enforce fixed size
-    2. override set h to enforce fixed size
-    3. _drawSelfOnly(): Draw filled rectangle content for obj 
+- Util.ts: object, text measurement literals, limited value tring types 
 
+- Err.ts: handles exceptions through the following:
+    - silent: ignore error
+    - message: print exception message to console log
+    - full_mesage: print exc message + stack trace to console log
+    - throw: rethrow exception 
 
-SizeConfig.ts
-
-
-Strut.ts
-
-test_cases.ts
-
-TextObject.ts
-
-TopObject.ts
-
-Util.ts
+- test_cases.ts: Test cases/demonstration of code for proj
