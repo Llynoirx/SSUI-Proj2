@@ -15,44 +15,50 @@ FILES
     - damage mangement: when obj change, update visual img of obj 
     - draw(): draw display for obj + all its children in local coord
     - TODO: 
-        1. set x pos property (declare damage when smthg changes)
-        2. set y pos property 
-        3. set w property
-        4. set wConig property 
-        5. set h property 
-        6. set hConfig property
-        7. set visible 
-        8. applyClip(): Reduce clipping area to intersection of existing clipping area and rect 
-        9. _startChildDraw(): Setup context to draw child at idx 
+        [x] set x pos property (declare damage when smthg changes)
+        [x] set y pos property
+        [x] set w property
+        [x] set wConig property 
+        [x] set h property 
+        [x] set hConfig property
+        [x] set visible 
+        [x] applyClip(): Reduce clipping area to intersection of existing clipping area and rect 
+        [x] _startChildDraw(): Setup context to draw child at idx 
             - (save curr state of context obj, apply translation transformation to move to child coord, reduce clipping region to remain in child bounding box)
-        10. damageArea(): Declare display in local damaged (no longer correct); have it redrawn at next opportunity
-        11. _damageFromChild(): Get damage report from child obj: local coords, corresponding damage up tree via parent
+        [x] damageArea(): Declare display in local damaged (no longer correct); have it redrawn at next opportunity
+        [x] _damageFromChild(): Get damage report from child obj: local coords, corresponding damage up tree via parent
+
+- IconObject.ts: Obj that draws image (icon)
+    - TODO:
+        [] set _resizesImage: if true, img -> obj size, else set obj size -> img size
+        [] _resize: if size determined by img, obj -> img size, else nothing
+        [] _drawSelfOnly: draw object 
 
 - TopObject.ts: Root/top obj of drawing obj tree
     - drawing, damage mangement, layout, redraw processes happen here
     - TODO: 
-        1. _drawSelfOnly(): Clear canvas behind children drawn 
-        2. layoutAndDrawAll(): Invoke layout + redraw of tree
-        3. damageArea(): override damage routine
+        [] _drawSelfOnly(): Clear canvas behind children drawn 
+        [] layoutAndDrawAll(): Invoke layout + redraw of tree
+        [] damageArea(): override damage routine
 
 - TextObject.ts: Display single text string on one line
     - TODO: 
-        1. set text 
-        2. set font 
-        3. set padding 
-        4. _recalcSize(): recalculate obj size based on text size
-        5. _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
+        [] set text 
+        [] set font 
+        [] set padding 
+        [] _recalcSize(): recalculate obj size based on text size
+        [] _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
 
 - FilledObject.ts: Fill bounding box w/ color
     - TODO: 
-        1. override set w to enforce fixed size
-        2. override set h to enforce fixed size
-        3. _drawSelfOnly(): Draw filled rectangle content for obj 
+        [] override set w to enforce fixed size
+        [] override set h to enforce fixed size
+        [] _drawSelfOnly(): Draw filled rectangle content for obj 
 
 - Strut.ts: Put btwn content objs of row/col by providing fixed spacing; no drawing output
     - TODO: 
-    1. override set w to enforce fixed size
-    2. override set h to enforce fixed size
+        [] override set w to enforce fixed size
+        [] override set h to enforce fixed size
 
 - Column.ts: Column layout to work w/ springs and struts
     - height inputted (fixed)
@@ -60,22 +66,22 @@ FILES
     - _doChildSizing(): ensure child size config up to date
     - _adjustChildren(): Adjust child height to do vertical springs + struts
     - TODO: 
-        1. _doLocalSizing(): set height and width config based on children
-        2. _measureChildren(): Measure children to prep for adjusting sizes 
+        [] _doLocalSizing(): set height and width config based on children
+        [] _measureChildren(): Measure children to prep for adjusting sizes 
             - (natSum of non-spring children, availCompr: total available compression across non-spring, numSprings of child)
-        3. _expandChildSprings(): expand child springs by adding excess space to total space across springs
-        4. _compressChildren(): compress/contract children to make up for shortfall
-        5. _completeLocalLayout(): Set final size and position of immediate children of local top down pass
+        [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
+        [] _compressChildren(): compress/contract children to make up for shortfall
+        [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
 
 - Row.ts: Row layout to work w/ springs and struts
     - width inputted 
     - height automatically set to fixed size
     - TODO:
-        1. _doLocalSizing (): set height and width config based on children 
-        2. _measureChildren(): Measure children to prep for adjusting sizes 
-        3. _expandChildSprings(): expand child springs by adding excess space to total space across springs
-        4. _compressChildren(): compress/contract children to make up for shortfall
-        5. _completeLocalLayout(): Set final size and position of immediate children of local top down pass
+        [] _doLocalSizing (): set height and width config based on children 
+        [] _measureChildren(): Measure children to prep for adjusting sizes 
+        [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
+        [] _compressChildren(): compress/contract children to make up for shortfall
+        [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
 
 - DrawableImage.ts: Draw canvas + arrange loading notif
     - DrawableImage{url, notifyFun}
@@ -84,6 +90,8 @@ FILES
     - reload(): reload context 
 
 - SizeConfig.ts: Size config obj (min, nat, max)
+
+- Group.ts: Group child objs together
 
 - Util.ts: object, text measurement literals, limited value tring types 
 
