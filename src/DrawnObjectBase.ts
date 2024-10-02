@@ -463,6 +463,10 @@ export class DrawnObjectBase {
                      clipx : number, clipy : number, clipw : number, cliph : number) 
     {
         //=== YOUR CODE HERE ===
+        // Declare new clipping rectangle
+        ctx.beginPath();
+        ctx.rect(clipx, clipy, clipw, cliph);
+        ctx.clip();
     }
 
     // Utility routine to create a new rectangular path at our bounding box.
@@ -528,6 +532,13 @@ export class DrawnObjectBase {
         ctx.save();
 
         //=== YOUR CODE HERE ===
+        // apply translation transformation to move to child's coordinate system
+        const child = this.children[childIndx];
+        ctx.translate(child.x, child.y);
+
+        // reduce clipping region of context object so its within child bounding box
+        this.makeBoundingBoxPath(ctx);
+        ctx.clip()
     }
 
     
