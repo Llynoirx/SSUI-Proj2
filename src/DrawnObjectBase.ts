@@ -159,6 +159,9 @@ export class DrawnObjectBase {
     public get wConfig() : SizeConfigLiteral {return this._wConfig;}
     public set wConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
+        if (v.nat !== this.naturalW)  this.naturalW = v.nat;
+        if (v.min !== this.minW)  this.minW = v.min;
+        if (v.max !== this.maxW)  this.maxW = v.max;
 
     }
         
