@@ -152,12 +152,25 @@ export class TextObject extends DrawnObjectBase {
             }
             
             //=== YOUR CODE HERE ===
+            // Set text font and color
+            ctx.font = this._font;
+            ctx.fillStyle = clr;
+
+            // Find (x,y) pos for text
+            const meas = ctx.measureText(this.text);
+            const x = this.x + this.padding.w;
+            const y = this.y + this.padding.h + meas.actualBoundingBoxAscent;
+     
+            if (this.renderType === 'fill') {
+                ctx.fillText(this.text, x, y);
+            }
 
         }   finally {
             // restore the drawing context to the state it was given to us in
             ctx.restore();
         }
     }
+    
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
