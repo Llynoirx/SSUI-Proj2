@@ -80,6 +80,7 @@ export class Column extends Group {
     //
     // This sets our height configuration to be the sum of the children 
     // (min is sum of mins, natual is sum of naturals, and max is sum of maxes). 
+
     // Our width `configuration is set based on the (piecewise) maximum of our children 
     // (min is the max of the child mins, natural is the max of the child naturals, and 
     // max is the max of the child maxes)
@@ -92,7 +93,22 @@ export class Column extends Group {
     // Our height is set to the height determined by stacking our children vertically.
     protected override _doLocalSizing() : void {
         //=== YOUR CODE HERE ===
+        let childSum = { min: 0, nat: 0, max: 0};
+        let childMax = { min: 0, nat: 0, max: 0};
+
+        this.children.forEach((child) => {
+            childSum = SizeConfig.add(childSum, child.hConfig)
+            childMax = SizeConfig.maximum(childMax,child.wConfig)
+        })
+        
+        this.hConfig = childSum
+        this.wConfig = childMax
+
     }
+
+
+
+    
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
