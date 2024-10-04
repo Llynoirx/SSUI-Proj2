@@ -57,8 +57,8 @@ FILES
 
 - Strut.ts: Put btwn content objs of row/col by providing fixed spacing; no drawing output
     - TODO: 
-        - [] override set w to enforce fixed size
-        - [] override set h to enforce fixed size
+        - [x] override set w to enforce fixed size
+        - [x] override set h to enforce fixed size
 
 - Column.ts: Column layout to work w/ springs and struts
     - height inputted (fixed)
