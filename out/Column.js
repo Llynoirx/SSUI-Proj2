@@ -78,6 +78,14 @@ export class Column extends Group {
     // Our height is set to the height determined by stacking our children vertically.
     _doLocalSizing() {
         //=== YOUR CODE HERE ===
+        let childSum = { min: 0, nat: 0, max: 0 };
+        let childMax = { min: 0, nat: 0, max: 0 };
+        for (let child of this.children) {
+            childSum = SizeConfig.add(childSum, child.hConfig);
+            childMax = SizeConfig.maximum(childMax, child.wConfig);
+        }
+        this.hConfig = childSum;
+        this.wConfig = childMax;
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // This method adjusts the height of the children to do vertical springs and struts 
@@ -135,6 +143,17 @@ export class Column extends Group {
         let availCompr = 0;
         let numSprings = 0;
         //=== YOUR CODE HERE ===
+        for (let child of this.children) {
+            // find sum of nat size and total compression available for non-spring children
+            if (!(child instanceof Spring)) {
+                natSum += child.hConfig.nat;
+                availCompr += (child.hConfig.nat - child.hConfig.min);
+                // find num of springs among child objs
+            }
+            else {
+                numSprings++;
+            }
+        }
         return [natSum, availCompr, numSprings];
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -144,6 +163,13 @@ export class Column extends Group {
     // the space at the bottom of the column as a fallback strategy).
     _expandChildSprings(excess, numSprings) {
         //=== YOUR CODE HERE ===
+        if (numSprings > 0) {
+            const addedSpace = excess / numSprings;
+            for (let child of this.children) {
+                if (child instanceof Spring)
+                    child.h = addedSpace;
+            }
+        }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // Contract our child objects to make up the given amount of shortfall.  Springs
@@ -160,6 +186,8 @@ export class Column extends Group {
         // from the natural height of that child, to get the assigned height.
         for (let child of this.children) {
             //=== YOUR CODE HERE ===
+            const compressFrac = (child.h - child.minH) / availCompr;
+            child.h -= compressFrac / shortfall;
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -198,6 +226,14 @@ export class Column extends Group {
         }
         // apply our justification setting for the horizontal
         //=== YOUR CODE HERE ===
+        for (let child of this.children) {
+            if (this.wJustification = 'left')
+                child.x = 0;
+            else if (this.wJustification = 'right')
+                child.x = this.w - child.w;
+            else if (this.wJustification = 'center')
+                child.x = 1 / 2 * (this.w - child.w);
+        }
     }
 }
 //===================================================================

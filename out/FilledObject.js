@@ -24,17 +24,17 @@ export class FilledObject extends DrawnObjectBase {
     get w() { return super.w; }
     set w(v) {
         //=== YOUR CODE HERE ===
-        if (this.w !== v) {
-            this.w = v;
-            this.wConfig = SizeConfig.fixed(this.w);
+        if (super.w !== v) {
+            super.w = v;
+            super.wConfig = SizeConfig.fixed(v);
         }
     }
     get h() { return super.h; }
     set h(v) {
         //=== YOUR CODE HERE ===
-        if (this.h !== v) {
-            this.h = v;
-            this.hConfig = SizeConfig.fixed(this.h);
+        if (super.h !== v) {
+            super.h = v;
+            super.hConfig = SizeConfig.fixed(v);
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
