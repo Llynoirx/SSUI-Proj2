@@ -20,7 +20,7 @@ import { DrawableImage } from "./DrawableImage.js";
 import { TopObject } from "./TopObject.js";
 import { FilledObject } from "./FilledObject.js";
 import { TextObject, TextObject_debug } from "./TextObject.js";
-import { IconObject } from "./IconOjbect.js";
+import { IconObject } from "./IconObject.js";
 // Layout related subclasses
 import { Column_debug } from "./Column.js";
 import { Row_debug } from "./Row.js";

@@ -98,6 +98,7 @@ export class TopObject extends DrawnObjectBase {
     // For this object we clear the canvas behind the children that we draw
     protected override _drawSelfOnly(ctx: CanvasRenderingContext2D): void {
         //=== YOUR CODE HERE ===
+        ctx.clearRect(0, 0, this._w, this._h);
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

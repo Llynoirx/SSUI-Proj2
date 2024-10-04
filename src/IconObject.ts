@@ -83,10 +83,12 @@ export class IconObject extends DrawnObjectBase {
 
     // If true, then we draw the image at our size, otherwise we set our
     // size to match the image size.  
+    // true: img size -> obj size; false: obj size -> img size
     protected _resizesImage : boolean = true;
     public get resizesImage() {return this._resizesImage;}
     public set resizesImage(v : boolean) {
-        //=== YOUR CODE HERE ===
+        this.resizesImage = v;
+        this._resize();
     }
 
     //-------------------------------------------------------------------
@@ -94,8 +96,13 @@ export class IconObject extends DrawnObjectBase {
     //-------------------------------------------------------------------
     
     // If our size is determined by the image, resize us to match (otherwise do nothing).
+    // obj size -> img size
     protected _resize() {
         //=== YOUR CODE HERE ===
+        // if (!this.resizesImage && this.image) {
+        //         this.w = this.image.w;
+        //         this.h = this.image.h;
+        //     }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

@@ -138,11 +138,17 @@ export class DrawnObjectBase {
             // don't forget to declare damage whenever something changes
             // that could affect the display
             //=== YOUR CODE HERE ===
+            this.x = v;
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     get y() { return this._y; }
     set y(v) {
         //=== YOUR CODE HERE ===
+        if (v !== this.y) {
+            this.y = v;
+            this.damageArea(this.x, this.y, this.w, this.h);
+        }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // x,y position of this object in parent coordinates 
@@ -155,10 +161,20 @@ export class DrawnObjectBase {
     get w() { return this._w; }
     set w(v) {
         //=== YOUR CODE HERE ===
+        if (v !== this.w) {
+            this.w = v;
+            this.damageArea(this.x, this.y, this.w, this.h);
+        }
     }
     get wConfig() { return this._wConfig; }
     set wConfig(v) {
         //=== YOUR CODE HERE ===
+        if (v.nat !== this.naturalW)
+            this.naturalW = v.nat;
+        if (v.min !== this.minW)
+            this.minW = v.min;
+        if (v.max !== this.maxW)
+            this.maxW = v.max;
     }
     get naturalW() { return this._wConfig.nat; }
     set naturalW(v) {
@@ -177,10 +193,20 @@ export class DrawnObjectBase {
     get h() { return this._h; }
     set h(v) {
         //=== YOUR CODE HERE ===
+        if (v !== this.h) {
+            this.h = v;
+            this.damageArea(this.x, this.y, this.w, this.h);
+        }
     }
     get hConfig() { return this._hConfig; }
     set hConfig(v) {
         //=== YOUR CODE HERE ===
+        if (v.nat !== this.naturalH)
+            this.naturalH = v.nat;
+        if (v.min !== this.minH)
+            this.minH = v.min;
+        if (v.max !== this.maxH)
+            this.maxH = v.max;
     }
     get naturalH() { return this._hConfig.nat; }
     set naturalH(v) {
@@ -205,6 +231,8 @@ export class DrawnObjectBase {
     get visible() { return this._visible; }
     set visible(v) {
         //=== YOUR CODE HERE ===
+        if (v !== this.visible)
+            this.visible = v;
     }
     get parent() { return this._parent; }
     // Find the root display object at the top of the tree this object is installed in.
@@ -383,6 +411,10 @@ export class DrawnObjectBase {
     // area and the given rectangle.
     applyClip(ctx, clipx, clipy, clipw, cliph) {
         //=== YOUR CODE HERE ===
+        // Declare new clipping rectangle
+        ctx.beginPath();
+        ctx.rect(clipx, clipy, clipw, cliph);
+        ctx.clip();
     }
     // Utility routine to create a new rectangular path at our bounding box.
     makeBoundingBoxPath(ctx) {
@@ -441,6 +473,12 @@ export class DrawnObjectBase {
         // save the state of the context object on its internal stack
         ctx.save();
         //=== YOUR CODE HERE ===
+        // apply translation transformation to move to child's coordinate system
+        const child = this.children[childIndx];
+        ctx.translate(child.x, child.y);
+        // reduce clipping region of context object so its within child bounding box
+        this.makeBoundingBoxPath(ctx);
+        ctx.clip();
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // Internal method to restore the given drawing context after drawing the 
@@ -554,6 +592,9 @@ export class DrawnObjectBase {
     // our parent.
     damageArea(xv, yv, wv, hv) {
         //=== YOUR CODE HERE ===
+        // If parent exist, pass damage report up tree 
+        if (this.parent)
+            this.parent._damageFromChild(this, xv, yv, wv, hv);
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // Declare that the entire bounding box has been damaged.  This is the typical 
@@ -571,6 +612,12 @@ export class DrawnObjectBase {
     // limited to our bounds by clipping.
     _damageFromChild(child, xInChildCoords, yInChildCoords, wv, hv) {
         //=== YOUR CODE HERE ===
+        // Convert child to local coords
+        const xLocal = child.x + xInChildCoords;
+        const yLocal = child.y + yInChildCoords;
+        // If parent exist, pass damage report up tree 
+        if (this.parent)
+            this.parent._damageFromChild(this, xLocal, yLocal, wv, hv);
     }
     get debugID() { return this._debugID; }
     static _genDebugID() { return DrawnObjectBase._nextDebugID++; }

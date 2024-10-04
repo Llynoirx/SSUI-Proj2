@@ -30,7 +30,7 @@ FILES
 
 - IconObject.ts: Obj that draws image (icon)
     - TODO:
-        [] set _resizesImage: if true, img -> obj size, else set obj size -> img size
+        [x] set _resizesImage: if true, img -> obj size, else set obj size -> img size
         [] _resize: if size determined by img, obj -> img size, else nothing
         [] _drawSelfOnly: draw object 
 
