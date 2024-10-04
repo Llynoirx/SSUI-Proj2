@@ -25,16 +25,28 @@ export class TextObject extends DrawnObjectBase {
     get text() { return this._text; }
     set text(v) {
         //=== YOUR CODE HERE ===
+        if (this.text !== v) {
+            this.text = v;
+            this._recalcSize();
+        }
     }
     get font() { return this._font; }
     set font(v) {
         //=== YOUR CODE HERE ===
+        if (this.font !== v) {
+            this.font = v;
+            this._recalcSize();
+        }
     }
     get padding() { return this._padding; }
     set padding(v) {
         if (typeof v === 'number')
             v = { w: v, h: v };
         //=== YOUR CODE HERE ===
+        if (this.padding !== v) {
+            this.padding = v;
+            this._recalcSize();
+        }
     }
     get renderType() { return this._renderType; }
     set rederType(v) { this._renderType = v; }
@@ -46,6 +58,12 @@ export class TextObject extends DrawnObjectBase {
     // Recalculate the size of this object based on the size of the text
     _recalcSize(ctx) {
         //=== YOUR CODE HERE ===
+        if (!ctx)
+            return;
+        // Find text width and height and add padding
+        const meas = ctx.measureText(this.text);
+        this.w = meas.width;
+        this.h = meas.actualBoundingBoxAscent + meas.actualBoundingBoxDescent;
         // set the size configuration to be fixed at that size
         this.wConfig = SizeConfig.fixed(this.w);
         this.hConfig = SizeConfig.fixed(this.h);
@@ -69,6 +87,16 @@ export class TextObject extends DrawnObjectBase {
                 clr = this.color.toString();
             }
             //=== YOUR CODE HERE ===
+            // Set text font and color
+            ctx.font = this._font;
+            ctx.fillStyle = clr;
+            // Find (x,y) pos for text
+            const meas = ctx.measureText(this.text);
+            const x = this.x + this.padding.w;
+            const y = this.y + this.padding.h + meas.actualBoundingBoxAscent;
+            if (this.renderType === 'fill') {
+                ctx.fillText(this.text, x, y);
+            }
         }
         finally {
             // restore the drawing context to the state it was given to us in
