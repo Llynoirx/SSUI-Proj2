@@ -190,6 +190,12 @@ export class Column extends Group {
     // the space at the bottom of the column as a fallback strategy).
     protected _expandChildSprings(excess : number, numSprings : number) : void {
         //=== YOUR CODE HERE ===
+        if (numSprings > 0){
+            const addedSpace = excess/numSprings;
+            for (let child of this.children){
+                if (child instanceof Spring) child.h = addedSpace;
+            }
+        }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
