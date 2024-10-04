@@ -262,6 +262,11 @@ export class Column extends Group {
         // apply our justification setting for the horizontal
         
         //=== YOUR CODE HERE ===
+        for (let child of this.children){
+            if (this.wJustification = 'left') child.x=0;
+            else if (this.wJustification = 'right') child.x= this.w-child.w;
+            else if (this.wJustification = 'center') child.x= 1/2*(this.w-child.w);
+        }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
