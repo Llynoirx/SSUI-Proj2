@@ -93,22 +93,18 @@ export class Column extends Group {
     // Our height is set to the height determined by stacking our children vertically.
     protected override _doLocalSizing() : void {
         //=== YOUR CODE HERE ===
-        let childSum = { min: 0, nat: 0, max: 0};
-        let childMax = { min: 0, nat: 0, max: 0};
+        let childSum = {min: 0, nat: 0, max: 0};
+        let childMax = {min: 0, nat: 0, max: 0};
 
-        this.children.forEach((child) => {
+        for (let child of this.children){
             childSum = SizeConfig.add(childSum, child.hConfig)
             childMax = SizeConfig.maximum(childMax,child.wConfig)
-        })
-        
+        }
+
         this.hConfig = childSum
         this.wConfig = childMax
 
     }
-
-
-
-    
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
@@ -172,6 +168,16 @@ export class Column extends Group {
         let numSprings = 0; 
 
         //=== YOUR CODE HERE ===
+        for (let child of this.children){
+            // find sum of nat size and total compression available for non-spring children
+            if (!(child instanceof Spring)) {
+                natSum += child.hConfig.nat;
+                availCompr += (child.hConfig.nat - child.hConfig.min);
+            // find num of springs among child objs
+            } else {
+                numSprings++;
+            }
+        }
 
         return [natSum, availCompr, numSprings];
     }
