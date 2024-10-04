@@ -210,6 +210,8 @@ export class Column extends Group {
         // from the natural height of that child, to get the assigned height.
         for (let child of this.children) {
             //=== YOUR CODE HERE ===
+            const compressFrac = (child.h - child.minH)/availCompr
+            child.h -= compressFrac/shortfall
         }
 }
 
