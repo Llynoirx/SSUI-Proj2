@@ -31,6 +31,7 @@ export class FilledObject extends DrawnObjectBase {
         if (super.w !== v){
             super.w = v;
             super.wConfig = SizeConfig.fixed(v);
+            this.damageArea(0, 0, this.w, this.h);
         }
     }
 
@@ -40,6 +41,7 @@ export class FilledObject extends DrawnObjectBase {
         if (super.h !== v){
             super.h = v;
             super.hConfig = SizeConfig.fixed(v);
+            this.damageArea(0, 0, this.w, this.h);
         }
     }
 
@@ -81,7 +83,7 @@ export class FilledObject extends DrawnObjectBase {
         }
         
         //=== YOUR CODE HERE ===
-        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.fillRect(0, 0, this.w, this.h);
     }
 
     

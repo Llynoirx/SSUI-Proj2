@@ -19,6 +19,7 @@ export class IconObject extends DrawnObjectBase {
         //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
         // If true, then we draw the image at our size, otherwise we set our
         // size to match the image size.  
+        // true: img size -> obj size; false: obj size -> img size
         this._resizesImage = true;
         this._resizesImage = reszImg;
         if (typeof urlOrImg === 'string') {
@@ -74,14 +75,20 @@ export class IconObject extends DrawnObjectBase {
     }
     get resizesImage() { return this._resizesImage; }
     set resizesImage(v) {
-        //=== YOUR CODE HERE ===
+        this._resizesImage = v;
     }
     //-------------------------------------------------------------------
     // Methods
     //-------------------------------------------------------------------
     // If our size is determined by the image, resize us to match (otherwise do nothing).
+    // obj size -> img size
     _resize() {
+        var _a;
         //=== YOUR CODE HERE ===
+        if (!this.resizesImage && ((_a = this.image) === null || _a === void 0 ? void 0 : _a.canvasImage)) {
+            this.w = this.image.canvasImage.width;
+            this.h = this.image.canvasImage.height;
+        }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // Function that is called when our loading is complete
@@ -106,9 +113,12 @@ export class IconObject extends DrawnObjectBase {
             return;
         if (this.resizesImage) {
             //=== YOUR CODE HERE ===
+            ctx.drawImage(this.image.canvasImage, this.x, this.y, this.w, this.h);
         }
         else {
             //=== YOUR CODE HERE ===
+            this._resize();
+            ctx.drawImage(this.image.canvasImage, this.x, this.y, this.w, this.h);
         }
     }
 } // end of IconObject class
