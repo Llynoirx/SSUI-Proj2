@@ -43,22 +43,22 @@ FILES
 
 - TextObject.ts: Display single text string on one line
     - TODO: 
-        [] set text 
-        [] set font 
-        [] set padding 
-        [] _recalcSize(): recalculate obj size based on text size
-        [] _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
+        - [] set text 
+        - [] set font 
+        - [] set padding 
+        - [] _recalcSize(): recalculate obj size based on text size
+        - [] _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
 
 - FilledObject.ts: Fill bounding box w/ color
     - TODO: 
-        [] override set w to enforce fixed size
-        [] override set h to enforce fixed size
-        [] _drawSelfOnly(): Draw filled rectangle content for obj 
+        - [] override set w to enforce fixed size
+        - [] override set h to enforce fixed size
+        - [] _drawSelfOnly(): Draw filled rectangle content for obj 
 
 - Strut.ts: Put btwn content objs of row/col by providing fixed spacing; no drawing output
     - TODO: 
-        [] override set w to enforce fixed size
-        [] override set h to enforce fixed size
+        - [] override set w to enforce fixed size
+        - [] override set h to enforce fixed size
 
 - Column.ts: Column layout to work w/ springs and struts
     - height inputted (fixed)
@@ -66,22 +66,22 @@ FILES
     - _doChildSizing(): ensure child size config up to date
     - _adjustChildren(): Adjust child height to do vertical springs + struts
     - TODO: 
-        [] _doLocalSizing(): set height and width config based on children
-        [] _measureChildren(): Measure children to prep for adjusting sizes 
+        - [] _doLocalSizing(): set height and width config based on children
+        - [] _measureChildren(): Measure children to prep for adjusting sizes 
             - (natSum of non-spring children, availCompr: total available compression across non-spring, numSprings of child)
-        [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
-        [] _compressChildren(): compress/contract children to make up for shortfall
-        [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
+        - [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
+        - [] _compressChildren(): compress/contract children to make up for shortfall
+        - [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
 
 - Row.ts: Row layout to work w/ springs and struts
     - width inputted 
     - height automatically set to fixed size
     - TODO:
-        [] _doLocalSizing (): set height and width config based on children 
-        [] _measureChildren(): Measure children to prep for adjusting sizes 
-        [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
-        [] _compressChildren(): compress/contract children to make up for shortfall
-        [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
+        - [] _doLocalSizing (): set height and width config based on children 
+        - [] _measureChildren(): Measure children to prep for adjusting sizes 
+        - [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
+        - [] _compressChildren(): compress/contract children to make up for shortfall
+        - [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
 
 - DrawableImage.ts: Draw canvas + arrange loading notif
     - DrawableImage{url, notifyFun}
