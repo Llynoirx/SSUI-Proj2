@@ -77,11 +77,11 @@ FILES
     - width inputted 
     - height automatically set to fixed size
     - TODO:
-        - [] _doLocalSizing (): set height and width config based on children 
-        - [] _measureChildren(): Measure children to prep for adjusting sizes 
-        - [] _expandChildSprings(): expand child springs by adding excess space to total space across springs
-        - [] _compressChildren(): compress/contract children to make up for shortfall
-        - [] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
+        - [x] _doLocalSizing (): set height and width config based on children 
+        - [x] _measureChildren(): Measure children to prep for adjusting sizes 
+        - [x] _expandChildSprings(): expand child springs by adding excess space to total space across springs
+        - [x] _compressChildren(): compress/contract children to make up for shortfall
+        - [x] _completeLocalLayout(): Set final size and position of immediate children of local top down pass
 
 - DrawableImage.ts: Draw canvas + arrange loading notif
     - DrawableImage{url, notifyFun}
