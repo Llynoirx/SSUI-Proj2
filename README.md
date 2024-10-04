@@ -43,11 +43,11 @@ FILES
 
 - TextObject.ts: Display single text string on one line
     - TODO: 
-        - [] set text 
-        - [] set font 
-        - [] set padding 
-        - [] _recalcSize(): recalculate obj size based on text size
-        - [] _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
+        - [x] set text 
+        - [x] set font 
+        - [x] set padding 
+        - [x] _recalcSize(): recalculate obj size based on text size
+        - [x] _drawSelfOnly(): draw obj (left-to-right Latin alphabet)
 
 - FilledObject.ts: Fill bounding box w/ color
     - TODO: 
