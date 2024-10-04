@@ -119,6 +119,12 @@ export class TextObject extends DrawnObjectBase {
     // Recalculate the size of this object based on the size of the text
     protected _recalcSize(ctx? : DrawContext) : void {
         //=== YOUR CODE HERE ===
+        if (!ctx) return;
+
+        // Find text width and height and add padding
+        const meas = ctx.measureText(this.text);
+        this.w = meas.width;
+        this.h = meas.actualBoundingBoxAscent + meas.actualBoundingBoxDescent;
 
         // set the size configuration to be fixed at that size
         this.wConfig = SizeConfig.fixed(this.w);
