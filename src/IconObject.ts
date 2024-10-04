@@ -99,10 +99,10 @@ export class IconObject extends DrawnObjectBase {
     // obj size -> img size
     protected _resize() {
         //=== YOUR CODE HERE ===
-        // if (!this.resizesImage && this.image) {
-        //         this.w = this.image.w;
-        //         this.h = this.image.h;
-        //     }
+        if (!this.resizesImage && this.image?.canvasImage) {
+            this.w = this.image.canvasImage.width;
+            this.h = this.image.canvasImage.height;
+        }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
