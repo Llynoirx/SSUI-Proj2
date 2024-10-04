@@ -145,7 +145,7 @@ export class DrawnObjectBase {
     get y() { return this._y; }
     set y(v) {
         //=== YOUR CODE HERE ===
-        if (this._y !== v) {
+        if (v !== this._y) {
             this._y = v;
             this.damageAll();
         }
@@ -227,9 +227,10 @@ export class DrawnObjectBase {
     get visible() { return this._visible; }
     set visible(v) {
         //=== YOUR CODE HERE ===
-        if (v !== this._visible)
+        if (v !== this._visible) {
             this._visible = v;
-        this.damageAll();
+            this.damageAll();
+        }
     }
     get parent() { return this._parent; }
     // Find the root display object at the top of the tree this object is installed in.
@@ -475,7 +476,7 @@ export class DrawnObjectBase {
         ctx.translate(child.x, child.y);
         // reduce clipping region of context object so its within child bounding box
         this.makeBoundingBoxPath(ctx);
-        ctx.clip();
+        this.applyClip(ctx, 0, 0, child.w, child.h);
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // Internal method to restore the given drawing context after drawing the 

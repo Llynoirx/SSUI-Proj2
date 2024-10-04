@@ -24,18 +24,18 @@ export class FilledObject extends DrawnObjectBase {
     get w() { return super.w; }
     set w(v) {
         //=== YOUR CODE HERE ===
-        if (super.w !== v) {
-            super.w = v;
-            super.wConfig = SizeConfig.fixed(v);
+        if (this._w !== v) {
+            this._w = v;
+            this._wConfig = SizeConfig.fixed(v);
             this.damageArea(0, 0, this.w, this.h);
         }
     }
     get h() { return super.h; }
     set h(v) {
         //=== YOUR CODE HERE ===
-        if (super.h !== v) {
-            super.h = v;
-            super.hConfig = SizeConfig.fixed(v);
+        if (this._h !== v) {
+            this._h = v;
+            this._hConfig = SizeConfig.fixed(v);
             this.damageArea(0, 0, this.w, this.h);
         }
     }

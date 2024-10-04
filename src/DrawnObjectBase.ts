@@ -124,7 +124,7 @@ export class DrawnObjectBase {
     public get y() : number {return this._y;}
     public set y(v : number) {
         //=== YOUR CODE HERE ===
-        if (this._y !== v) {
+        if (v !== this._y) {
            this._y = v;
            this.damageAll();
        }
@@ -238,8 +238,10 @@ export class DrawnObjectBase {
     public get visible() : boolean {return this._visible;}
     public set visible(v : boolean) {
             //=== YOUR CODE HERE ===
-            if (v !== this._visible) this._visible = v;
-            this.damageAll();
+            if (v !== this._visible) {
+                this._visible = v;
+                this.damageAll();
+            }
     }
 
     //-------------------------------------------------------------------
@@ -540,7 +542,7 @@ export class DrawnObjectBase {
 
         // reduce clipping region of context object so its within child bounding box
         this.makeBoundingBoxPath(ctx);
-        ctx.clip()
+        this.applyClip(ctx, 0, 0, child.w, child.h);
     }
 
     
