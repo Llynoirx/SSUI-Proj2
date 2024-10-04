@@ -15,31 +15,31 @@ FILES
     - damage mangement: when obj change, update visual img of obj 
     - draw(): draw display for obj + all its children in local coord
     - TODO: 
-        [x] set x pos property (declare damage when smthg changes)
-        [x] set y pos property
-        [x] set w property
-        [x] set wConig property 
-        [x] set h property 
-        [x] set hConfig property
-        [x] set visible 
-        [x] applyClip(): Reduce clipping area to intersection of existing clipping area and rect 
-        [x] _startChildDraw(): Setup context to draw child at idx 
+        - [x] set x pos property (declare damage when smthg changes)
+        - [x] set y pos property
+        - [x] set w property
+        - [x] set wConig property 
+        - [x] set h property 
+        - [x] set hConfig property
+        - [x] set visible 
+        - [x] applyClip(): Reduce clipping area to intersection of existing clipping area and rect 
+        - [x] _startChildDraw(): Setup context to draw child at idx 
             - (save curr state of context obj, apply translation transformation to move to child coord, reduce clipping region to remain in child bounding box)
-        [x] damageArea(): Declare display in local damaged (no longer correct); have it redrawn at next opportunity
-        [x] _damageFromChild(): Get damage report from child obj: local coords, corresponding damage up tree via parent
+        - [x] damageArea(): Declare display in local damaged (no longer correct); have it redrawn at next opportunity
+        - [x] _damageFromChild(): Get damage report from child obj: local coords, corresponding damage up tree via parent
 
 - IconObject.ts: Obj that draws image (icon)
     - TODO:
-        [x] set _resizesImage: if true, img -> obj size, else set obj size -> img size
-        [] _resize: if size determined by img, obj -> img size, else nothing
-        [] _drawSelfOnly: draw object 
+        - [x] set _resizesImage: if true, img -> obj size, else set obj size -> img size
+        - [x] _resize: if size determined by img, obj -> img size, else nothing
+        - [x] _drawSelfOnly: draw object 
 
 - TopObject.ts: Root/top obj of drawing obj tree
     - drawing, damage mangement, layout, redraw processes happen here
     - TODO: 
-        [] _drawSelfOnly(): Clear canvas behind children drawn 
-        [] layoutAndDrawAll(): Invoke layout + redraw of tree
-        [] damageArea(): override damage routine
+        - [x] _drawSelfOnly(): Clear canvas behind children drawn 
+        - [x] layoutAndDrawAll(): Invoke layout + redraw of tree
+        - [x] damageArea(): override damage routine
 
 - TextObject.ts: Display single text string on one line
     - TODO: 
