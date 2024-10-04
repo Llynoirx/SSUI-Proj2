@@ -107,14 +107,14 @@ export class DrawnObjectBase {
     protected _x : number = 0;
     public get x() : number {return this._x;}  
     public set x(v : number) {
-        if (v !== this.x) {
+        if (v !== this._x) {
 
              // don't forget to declare damage whenever something changes
              // that could affect the display
 
             //=== YOUR CODE HERE ===
-            this.x = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this._x = v;
+            this.damageAll();
         }
     }    
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -124,9 +124,9 @@ export class DrawnObjectBase {
     public get y() : number {return this._y;}
     public set y(v : number) {
         //=== YOUR CODE HERE ===
-        if (v !== this.y) {
-           this.y = v;
-           this.damageArea(this.x, this.y, this.w, this.h);
+        if (this._y !== v) {
+           this._y = v;
+           this.damageAll();
        }
     }
 
@@ -146,9 +146,9 @@ export class DrawnObjectBase {
     public get w() : number {return this._w;}
     public set w(v : number) {
         //=== YOUR CODE HERE ===
-        if (v !== this.w) {
-            this.w = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+        if (this._w !== v) {
+            this._w = v;
+            this.damageAll();
         }
     }
 
@@ -159,9 +159,10 @@ export class DrawnObjectBase {
     public get wConfig() : SizeConfigLiteral {return this._wConfig;}
     public set wConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
-        if (v.nat !== this.naturalW)  this.naturalW = v.nat;
-        if (v.min !== this.minW)  this.minW = v.min;
-        if (v.max !== this.maxW)  this.maxW = v.max;
+        if(!(SizeConfig.eq(this._wConfig, v))){
+            this._wConfig = v;
+            this.damageAll();
+        }
     }
         
     public get naturalW() : number {return this._wConfig.nat;}
@@ -187,9 +188,9 @@ export class DrawnObjectBase {
     public get h() : number {return this._h;}
     public set h(v : number) {
         //=== YOUR CODE HERE ===
-        if (v !== this.h) {
-            this.h = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+        if(this._h !== v){
+            this._h = v;
+            this.damageAll();
         }
     }
 
@@ -200,9 +201,10 @@ export class DrawnObjectBase {
     public get hConfig() : SizeConfigLiteral {return this._hConfig;}
     public set hConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
-        if (v.nat !== this.naturalH)  this.naturalH = v.nat;
-        if (v.min !== this.minH)  this.minH = v.min;
-        if (v.max !== this.maxH)  this.maxH = v.max;
+        if(!(SizeConfig.eq(this._hConfig, v))){
+            this._hConfig = v;
+            this.damageAll();
+        }
     }
 
     public get naturalH() : number {return this._hConfig.nat;}
@@ -236,8 +238,8 @@ export class DrawnObjectBase {
     public get visible() : boolean {return this._visible;}
     public set visible(v : boolean) {
             //=== YOUR CODE HERE ===
-            if (v !== this.visible) this.visible = v;
-        
+            if (v !== this._visible) this._visible = v;
+            this.damageAll();
     }
 
     //-------------------------------------------------------------------

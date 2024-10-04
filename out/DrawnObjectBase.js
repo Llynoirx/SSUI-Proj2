@@ -134,20 +134,20 @@ export class DrawnObjectBase {
     }
     get x() { return this._x; }
     set x(v) {
-        if (v !== this.x) {
+        if (v !== this._x) {
             // don't forget to declare damage whenever something changes
             // that could affect the display
             //=== YOUR CODE HERE ===
-            this.x = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this._x = v;
+            this.damageAll();
         }
     }
     get y() { return this._y; }
     set y(v) {
         //=== YOUR CODE HERE ===
-        if (v !== this.y) {
-            this.y = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+        if (this._y !== v) {
+            this._y = v;
+            this.damageAll();
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -161,20 +161,18 @@ export class DrawnObjectBase {
     get w() { return this._w; }
     set w(v) {
         //=== YOUR CODE HERE ===
-        if (v !== this.w) {
-            this.w = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+        if (this._w !== v) {
+            this._w = v;
+            this.damageAll();
         }
     }
     get wConfig() { return this._wConfig; }
     set wConfig(v) {
         //=== YOUR CODE HERE ===
-        if (v.nat !== this.naturalW)
-            this.naturalW = v.nat;
-        if (v.min !== this.minW)
-            this.minW = v.min;
-        if (v.max !== this.maxW)
-            this.maxW = v.max;
+        if (!(SizeConfig.eq(this._wConfig, v))) {
+            this._wConfig = v;
+            this.damageAll();
+        }
     }
     get naturalW() { return this._wConfig.nat; }
     set naturalW(v) {
@@ -193,20 +191,18 @@ export class DrawnObjectBase {
     get h() { return this._h; }
     set h(v) {
         //=== YOUR CODE HERE ===
-        if (v !== this.h) {
-            this.h = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+        if (this._h !== v) {
+            this._h = v;
+            this.damageAll();
         }
     }
     get hConfig() { return this._hConfig; }
     set hConfig(v) {
         //=== YOUR CODE HERE ===
-        if (v.nat !== this.naturalH)
-            this.naturalH = v.nat;
-        if (v.min !== this.minH)
-            this.minH = v.min;
-        if (v.max !== this.maxH)
-            this.maxH = v.max;
+        if (!(SizeConfig.eq(this._hConfig, v))) {
+            this._hConfig = v;
+            this.damageAll();
+        }
     }
     get naturalH() { return this._hConfig.nat; }
     set naturalH(v) {
@@ -231,8 +227,9 @@ export class DrawnObjectBase {
     get visible() { return this._visible; }
     set visible(v) {
         //=== YOUR CODE HERE ===
-        if (v !== this.visible)
-            this.visible = v;
+        if (v !== this._visible)
+            this._visible = v;
+        this.damageAll();
     }
     get parent() { return this._parent; }
     // Find the root display object at the top of the tree this object is installed in.

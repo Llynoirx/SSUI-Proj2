@@ -174,9 +174,7 @@ export class Column extends Group {
                 natSum += child.hConfig.nat;
                 availCompr += (child.hConfig.nat - child.hConfig.min);
             // find num of springs among child objs
-            } else {
-                numSprings++;
-            }
+            } else numSprings++;
         }
 
         return [natSum, availCompr, numSprings];
