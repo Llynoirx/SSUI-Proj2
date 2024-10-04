@@ -51,9 +51,9 @@ FILES
 
 - FilledObject.ts: Fill bounding box w/ color
     - TODO: 
-        - [] override set w to enforce fixed size
-        - [] override set h to enforce fixed size
-        - [] _drawSelfOnly(): Draw filled rectangle content for obj 
+        - [x] override set w to enforce fixed size
+        - [x] override set h to enforce fixed size
+        - [x] _drawSelfOnly(): Draw filled rectangle content for obj 
 
 - Strut.ts: Put btwn content objs of row/col by providing fixed spacing; no drawing output
     - TODO: 
