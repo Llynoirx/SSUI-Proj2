@@ -96,12 +96,12 @@ export class Row extends Group {
         let childMax = {min: 0, nat: 0, max: 0};
 
         for (let child of this.children){
-            childSum = SizeConfig.add(childSum, child.hConfig)
-            childMax = SizeConfig.maximum(childMax,child.wConfig)
+            childSum = SizeConfig.add(childSum, child.wConfig)
+            childMax = SizeConfig.maximum(childMax,child.hConfig)
         }
 
-        this.hConfig = childSum
-        this.wConfig = childMax
+        this.wConfig = childSum
+        this.hConfig = childMax
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -169,8 +169,8 @@ export class Row extends Group {
         for (let child of this.children){
             // find sum of nat size and total compression available for non-spring children
             if (!(child instanceof Spring)) {
-                natSum += child.hConfig.nat;
-                availCompr += (child.hConfig.nat - child.hConfig.min);
+                natSum += child.wConfig.nat;
+                availCompr += (child.wConfig.nat - child.wConfig.min);
             // find num of springs among child objs
             } else numSprings++;
         }
@@ -213,7 +213,7 @@ export class Row extends Group {
         for (let child of this.children) {
             //=== YOUR CODE HERE ===
             const compressFrac = (child.w - child.minW)/availCompr
-            child.h -= compressFrac/shortfall
+            child.w -= compressFrac/shortfall
         }
 }
 
