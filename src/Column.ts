@@ -214,8 +214,8 @@ export class Column extends Group {
         // from the natural height of that child, to get the assigned height.
         for (let child of this.children) {
             //=== YOUR CODE HERE ===
-            const compressFrac = (child.h - child.minH)/availCompr
-            child.h -= compressFrac/shortfall
+            const compressFrac = (child.h - child.minH)/availCompr;
+            child.h -= compressFrac/shortfall;
         }
 }
 
@@ -260,10 +260,19 @@ export class Column extends Group {
         // apply our justification setting for the horizontal
         
         //=== YOUR CODE HERE ===
+        // Place children (blue boxes) correctly horizontally
         for (let child of this.children){
-            if (this.wJustification = 'left') child.x=0;
-            else if (this.wJustification = 'right') child.x= this.w-child.w;
-            else if (this.wJustification = 'center') child.x= 1/2*(this.w-child.w);
+            switch(this.wJustification) {
+                case 'left':
+                    child.x = 0;
+                    break;
+                case 'center':
+                    child.x = 1/2*(this.w-child.w);
+                    break;
+                case 'right':
+                    child.x = this.w-child.w;
+                    break;
+            }
         }
     }
 

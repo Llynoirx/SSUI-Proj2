@@ -23,17 +23,19 @@ export class Strut extends DrawnObjectBase {
     get w() { return super.w; }
     set w(v) {
         //=== YOUR CODE HERE ===
-        if (super.w !== v) {
-            super.w = v;
+        if (this._w !== v) {
+            this._w = v;
             this.wConfig = SizeConfig.fixed(v);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     get h() { return super.h; }
     set h(v) {
         //=== YOUR CODE HERE ===
-        if (super.h !== v) {
-            super.h = v;
+        if (this._h !== v) {
+            this._h = v;
             this.hConfig = SizeConfig.fixed(v);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

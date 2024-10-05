@@ -32,7 +32,7 @@ export class Spring extends DrawnObjectBase {
         if(v !== this._w) {
             this._w = v
         }
-        this.damageAll();
+        this.damageArea(this.x, this.y, this.w, this.h);
     }
 
     public override get h() {return super.h;}
@@ -41,7 +41,7 @@ export class Spring extends DrawnObjectBase {
         if(v !== this._h) {
             this._h = v
         }
-        this.damageAll();
+        this.damageArea(this.x, this.y, this.w, this.h);
     }
 
 
