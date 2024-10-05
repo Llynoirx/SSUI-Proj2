@@ -259,9 +259,17 @@ export class Row extends Group {
 
         //=== YOUR CODE HERE ===
         for (let child of this.children){
-            if (this.hJustification = 'top') child.y = 0
-            else if (this.hJustification = 'bottom') child.y = this.h - child.h
-            else if (this.hJustification = 'center') child.y= 1/2*(this.h-child.h);
+            switch(this.hJustification) {
+                case 'top':
+                    child.y = 0;
+                    break;
+                case 'center':
+                    child.y = 1/2*(this.h-child.h);
+                    break;
+                case 'bottom':
+                    child.y = this.h-child.h;
+                    break;
+            }
         }
     }
 
