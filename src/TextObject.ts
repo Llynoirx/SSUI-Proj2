@@ -36,10 +36,7 @@ export class TextObject extends DrawnObjectBase {
     public get text() {return this._text;}
     public set text(v : string) {
         //=== YOUR CODE HERE ===
-        if (this.text !==v){
-            this.text = v;
-            this._recalcSize();
-        }
+        if (this._text !==v) this._text = v;
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -72,10 +69,7 @@ export class TextObject extends DrawnObjectBase {
     public get font() {return this._font;}
     public set font(v : string) {
         //=== YOUR CODE HERE ===
-        if (this.font !==v){
-            this.font = v;
-            this._recalcSize();
-        }
+        if (this._font !==v) this._font = v;
     }  
     
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -88,10 +82,8 @@ export class TextObject extends DrawnObjectBase {
     public set padding(v : SizeLiteral | number) {
         if (typeof v === 'number') v = {w:v, h:v};
         //=== YOUR CODE HERE ===
-        if (this.padding !==v){
-            this.padding = v;
-            this._recalcSize();
-        }
+        this.w = v.w; 
+        this.y = v.h;
     }
     
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -121,16 +113,17 @@ export class TextObject extends DrawnObjectBase {
         //=== YOUR CODE HERE ===
         if (!ctx) return;
 
-        // Find text width and height and add padding
-        const meas = ctx.measureText(this.text);
-        this.w = meas.width;
-        this.h = meas.actualBoundingBoxAscent + meas.actualBoundingBoxDescent;
+        // Find text width and height
+        const text = this._measureText(this.text, this.font, ctx);
+        this.w = text.w;
+        this.h = text.h;
 
         // set the size configuration to be fixed at that size
         this.wConfig = SizeConfig.fixed(this.w);
         this.hConfig = SizeConfig.fixed(this.h);
     }
-    
+
+
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
     // Method to draw this object.  Note that we are only handling left-to-right
@@ -152,17 +145,22 @@ export class TextObject extends DrawnObjectBase {
             }
             
             //=== YOUR CODE HERE ===
-            // Set text font and color
-            ctx.font = this._font;
-            ctx.fillStyle = clr;
+            ctx.font = this.font;
+            ctx.textBaseline = 'alphabetic';
+            ctx.direction = 'ltr';
+            ctx.textAlign = 'left';
 
             // Find (x,y) pos for text
-            const meas = ctx.measureText(this.text);
-            const x = this.x + this.padding.w;
-            const y = this.y + this.padding.h + meas.actualBoundingBoxAscent;
-     
-            if (this.renderType === 'fill') {
-                ctx.fillText(this.text, x, y);
+            const text = this._measureText(this.text, this.font, ctx);
+            const x = this.padding.w;
+            const y = text.baseln + this.padding.h;
+             
+            if(this.renderType === 'fill'){
+                ctx.fillStyle = clr;
+                ctx.fillText(this.text, x, y)
+            } else if (this.renderType === 'stroke') {
+                ctx.strokeStyle = clr;
+                ctx.strokeText(this.text, x ,y)
             }
 
         }   finally {

@@ -87,6 +87,7 @@ export class IconObject extends DrawnObjectBase {
     protected _resizesImage : boolean = true;
     public get resizesImage() {return this._resizesImage;}
     public set resizesImage(v : boolean) {
+        //=== YOUR CODE HERE ===
         this._resizesImage = v;
     }
 
@@ -129,13 +130,13 @@ export class IconObject extends DrawnObjectBase {
         // if we don't have an image bail out
         if (!this.image || !this.image.canvasImage) return;
 
+        const img = this.image.canvasImage
         if (this.resizesImage) {
             //=== YOUR CODE HERE ===
-            ctx.drawImage(this.image.canvasImage, this.x, this.y, this.w, this.h);
+            ctx.drawImage(img, 0, 0, this.w, this.h);
         } else {
             //=== YOUR CODE HERE ===
-            this._resize()
-            ctx.drawImage(this.image.canvasImage, this.x, this.y, this.w, this.h);
+            ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
         }
     }
 

@@ -25,28 +25,22 @@ export class TextObject extends DrawnObjectBase {
     get text() { return this._text; }
     set text(v) {
         //=== YOUR CODE HERE ===
-        if (this.text !== v) {
-            this.text = v;
-            this._recalcSize();
-        }
+        if (this._text !== v)
+            this._text = v;
     }
     get font() { return this._font; }
     set font(v) {
         //=== YOUR CODE HERE ===
-        if (this.font !== v) {
-            this.font = v;
-            this._recalcSize();
-        }
+        if (this._font !== v)
+            this._font = v;
     }
     get padding() { return this._padding; }
     set padding(v) {
         if (typeof v === 'number')
             v = { w: v, h: v };
         //=== YOUR CODE HERE ===
-        if (this.padding !== v) {
-            this.padding = v;
-            this._recalcSize();
-        }
+        this.w = v.w;
+        this.y = v.h;
     }
     get renderType() { return this._renderType; }
     set rederType(v) { this._renderType = v; }
@@ -60,10 +54,10 @@ export class TextObject extends DrawnObjectBase {
         //=== YOUR CODE HERE ===
         if (!ctx)
             return;
-        // Find text width and height and add padding
-        const meas = ctx.measureText(this.text);
-        this.w = meas.width;
-        this.h = meas.actualBoundingBoxAscent + meas.actualBoundingBoxDescent;
+        // Find text width and height
+        const text = this._measureText(this.text, this.font, ctx);
+        this.w = text.w;
+        this.h = text.h;
         // set the size configuration to be fixed at that size
         this.wConfig = SizeConfig.fixed(this.w);
         this.hConfig = SizeConfig.fixed(this.h);
@@ -87,15 +81,21 @@ export class TextObject extends DrawnObjectBase {
                 clr = this.color.toString();
             }
             //=== YOUR CODE HERE ===
-            // Set text font and color
-            ctx.font = this._font;
-            ctx.fillStyle = clr;
+            ctx.font = this.font;
+            ctx.textBaseline = 'alphabetic';
+            ctx.direction = 'ltr';
+            ctx.textAlign = 'left';
             // Find (x,y) pos for text
-            const meas = ctx.measureText(this.text);
-            const x = this.x + this.padding.w;
-            const y = this.y + this.padding.h + meas.actualBoundingBoxAscent;
+            const text = this._measureText(this.text, this.font, ctx);
+            const x = this.padding.w;
+            const y = text.baseln + this.padding.h;
             if (this.renderType === 'fill') {
+                ctx.fillStyle = clr;
                 ctx.fillText(this.text, x, y);
+            }
+            else if (this.renderType === 'stroke') {
+                ctx.strokeStyle = clr;
+                ctx.strokeText(this.text, x, y);
             }
         }
         finally {

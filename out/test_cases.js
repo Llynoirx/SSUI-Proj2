@@ -42,7 +42,7 @@ export function runTests() {
     // set up the tree with all the test objects
     testFilled(root);
     // testIcon(root, 725, 10);
-    // testText(root, 200, 50);
+    testText(root, 200, 50);
     // testCol(root, 375, 300);
     // testRow(root, 10, 600);
     // testRowCol(root, 700, 350);
