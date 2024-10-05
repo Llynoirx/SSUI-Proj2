@@ -29,11 +29,19 @@ export class Spring extends DrawnObjectBase {
     public override get w() {return super.w;}  
     public override set w(v : number) {
         //=== YOUR CODE HERE ===
+        if(v !== this._w) {
+            this._w = v
+        }
+        this.damageAll();
     }
 
     public override get h() {return super.h;}
     public override set h(v : number) {
         //=== YOUR CODE HERE ===
+        if(v !== this._h) {
+            this._h = v
+        }
+        this.damageAll();
     }
 
 

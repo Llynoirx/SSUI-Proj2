@@ -98,7 +98,9 @@ export class TopObject extends DrawnObjectBase {
     // For this object we clear the canvas behind the children that we draw
     protected override _drawSelfOnly(ctx: CanvasRenderingContext2D): void {
         //=== YOUR CODE HERE ===
-        ctx.clearRect(0, 0, this._w, this._h);
+        ctx.clearRect(this.x, this.y, this.w, this.h)
+        ctx.rect(this.x, this.y, this.w, this.h)
+        ctx.stroke()
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -158,16 +160,12 @@ export class TopObject extends DrawnObjectBase {
                 // clip to our bounds
                 
                 //=== YOUR CODE HERE ===
-                this.canvasContext.beginPath();
-                this.canvasContext.rect(0, 0, this._w, this._h);
-                this.canvasContext.clip();
+                this.applyClip(this.canvasContext, this.x, this.y, this.w, this.h);
 
                 // within our bounds clip to just the damaged region
                 
                 //=== YOUR CODE HERE ===
-                this.canvasContext.beginPath();
-                this.canvasContext.rect(this._damageRectX, this._damageRectY, this._damageRectW, this._damageRectH);
-                this.canvasContext.clip();
+                this.applyClip(this.canvasContext, this._damageRectX, this._damageRectY, this._damageRectW, this._damageRectH);
 
                 // after this we will no longer be damaged, so reset our damage tracking
                 // rectangle to be our whole bounds
@@ -212,10 +210,17 @@ export class TopObject extends DrawnObjectBase {
     // damage instead of passing it up the tree (since there is no up  from here).
     public override damageArea(xv: number, yv: number, wv: number, hv: number): void {
         //=== YOUR CODE HERE ===
-        this._damageRectX = xv;
-        this._damageRectY = yv;
-        this._damageRectW = wv;
-        this._damageRectH = hv;
+        if(this.damaged) {
+            this._damageRectX = Math.min(this.x, xv);
+            this._damageRectY = Math.min(this.y, yv);
+            this._damageRectW = Math.max(this.w, wv);
+            this._damageRectH = Math.max(this.h, hv);
+        } else {
+            this._damageRectX = xv;
+            this._damageRectY = yv;
+            this._damageRectW = wv;
+            this._damageRectH = hv;
+        }
 
         this._damaged = true;
     }
