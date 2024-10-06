@@ -164,7 +164,7 @@ export class TopObject extends DrawnObjectBase {
 
                 // within our bounds clip to just the damaged region
                 
-                //=== YOUR CODE HERE ===
+                // //=== YOUR CODE HERE ===
                 this.applyClip(this.canvasContext, this._damageRectX, this._damageRectY, this._damageRectW, this._damageRectH);
 
                 // after this we will no longer be damaged, so reset our damage tracking
@@ -173,7 +173,7 @@ export class TopObject extends DrawnObjectBase {
                 this._damageRectW = this.w;
                 this._damageRectH = this.h;
 
-                // do the actual drawing from here down the tree
+                //do the actual drawing from here down the tree
                 
                 //=== YOUR CODE HERE ===
                 this._drawSelfOnly(this.canvasContext);
@@ -211,10 +211,34 @@ export class TopObject extends DrawnObjectBase {
     public override damageArea(xv: number, yv: number, wv: number, hv: number): void {
         //=== YOUR CODE HERE ===
         if(this.damaged) {
-            this._damageRectX = Math.min(this.x, xv);
-            this._damageRectY = Math.min(this.y, yv);
-            this._damageRectW = Math.max(this.w, wv);
-            this._damageRectH = Math.max(this.h, hv);
+           let newDamagedX = this._damageRectX;
+           let newDamagedY = this._damageRectX;
+           let newDamagedW = this._damageRectX;
+           let newDamagedH = this._damageRectX;
+           let boundsChanged = false;
+
+           if (xv + wv > this._damageRectX + this._damageRectW){
+            newDamagedW = xv+wv;
+            boundsChanged = true;
+           }
+           if (xv < this._damageRectX) {
+            newDamagedX = xv;
+            boundsChanged = true;
+           }
+           if (yv < this._damageRectY + this._damageRectH){
+            newDamagedH = yv+hv;
+            boundsChanged = true;
+           }
+           if (yv < this._damageRectY) {
+            newDamagedY = yv;
+            boundsChanged = true;
+           }
+           if(boundsChanged) {
+            this._damageRectW = newDamagedW;
+            this._damageRectH = newDamagedH;
+            this._damageRectX = newDamagedX;
+            this._damageRectY = newDamagedY;
+           }
         } else {
             this._damageRectX = xv;
             this._damageRectY = yv;

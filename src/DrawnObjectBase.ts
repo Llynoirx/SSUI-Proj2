@@ -147,8 +147,8 @@ export class DrawnObjectBase {
     public set w(v : number) {
         //=== YOUR CODE HERE ===
         if (this._w !== v) {
-            this._w = v;
-            this.damageAll();
+            this._w = SizeConfig.withinConfig(v,this._wConfig)
+            this.damageArea(this.x, this.y, this.w, this.h)
         }
     }
 
@@ -160,8 +160,8 @@ export class DrawnObjectBase {
     public set wConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
         if(!(SizeConfig.eq(this._wConfig, v))){
-            this._wConfig = v;
-            this.damageAll();
+            this._wConfig = SizeConfig.fitWithinConfig(v, this._wConfig);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
         
@@ -189,8 +189,8 @@ export class DrawnObjectBase {
     public set h(v : number) {
         //=== YOUR CODE HERE ===
         if(this._h !== v){
-            this._h = v;
-            this.damageAll();
+            this._h = SizeConfig.withinConfig(v,this._hConfig)
+            this.damageArea(this.x, this.y, this.w, this.h)
         }
     }
 
@@ -202,8 +202,8 @@ export class DrawnObjectBase {
     public set hConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
         if(!(SizeConfig.eq(this._hConfig, v))){
-            this._hConfig = v;
-            this.damageAll();
+            this._hConfig = SizeConfig.fitWithinConfig(v, this._hConfig);
+            this.damageArea(this.x, this.y, this.w, this.h)
         }
     }
 
@@ -470,6 +470,8 @@ export class DrawnObjectBase {
         // Declare new clipping rectangle
         ctx.beginPath();
         ctx.rect(clipx, clipy, clipw, cliph);
+        ctx.stroke();
+        ctx.closePath();
         ctx.clip();
     }
 
@@ -541,7 +543,7 @@ export class DrawnObjectBase {
         ctx.translate(child.x, child.y);
 
         // reduce clipping region of context object so its within child bounding box
-        this.makeBoundingBoxPath(ctx);
+        // this.makeBoundingBoxPath(ctx);
         this.applyClip(ctx, 0, 0, child.w, child.h);
     }
 
@@ -702,8 +704,7 @@ export class DrawnObjectBase {
         const xLocal = child.x + xInChildCoords;
         const yLocal = child.y + yInChildCoords;
 
-        // If parent exist, pass damage report up tree 
-        if (this.parent) this.parent._damageFromChild(this, xLocal, yLocal, wv, hv);
+        this.damageArea(xLocal, yLocal, wv, hv);
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

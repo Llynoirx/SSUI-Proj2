@@ -162,16 +162,16 @@ export class DrawnObjectBase {
     set w(v) {
         //=== YOUR CODE HERE ===
         if (this._w !== v) {
-            this._w = v;
-            this.damageAll();
+            this._w = SizeConfig.withinConfig(v, this._wConfig);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     get wConfig() { return this._wConfig; }
     set wConfig(v) {
         //=== YOUR CODE HERE ===
         if (!(SizeConfig.eq(this._wConfig, v))) {
-            this._wConfig = v;
-            this.damageAll();
+            this._wConfig = SizeConfig.fitWithinConfig(v, this._wConfig);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     get naturalW() { return this._wConfig.nat; }
@@ -192,16 +192,16 @@ export class DrawnObjectBase {
     set h(v) {
         //=== YOUR CODE HERE ===
         if (this._h !== v) {
-            this._h = v;
-            this.damageAll();
+            this._h = SizeConfig.withinConfig(v, this._hConfig);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     get hConfig() { return this._hConfig; }
     set hConfig(v) {
         //=== YOUR CODE HERE ===
         if (!(SizeConfig.eq(this._hConfig, v))) {
-            this._hConfig = v;
-            this.damageAll();
+            this._hConfig = SizeConfig.fitWithinConfig(v, this._hConfig);
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
     get naturalH() { return this._hConfig.nat; }
@@ -412,6 +412,8 @@ export class DrawnObjectBase {
         // Declare new clipping rectangle
         ctx.beginPath();
         ctx.rect(clipx, clipy, clipw, cliph);
+        ctx.stroke();
+        ctx.closePath();
         ctx.clip();
     }
     // Utility routine to create a new rectangular path at our bounding box.
@@ -475,7 +477,7 @@ export class DrawnObjectBase {
         const child = this.children[childIndx];
         ctx.translate(child.x, child.y);
         // reduce clipping region of context object so its within child bounding box
-        this.makeBoundingBoxPath(ctx);
+        // this.makeBoundingBoxPath(ctx);
         this.applyClip(ctx, 0, 0, child.w, child.h);
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -613,9 +615,7 @@ export class DrawnObjectBase {
         // Convert child to local coords
         const xLocal = child.x + xInChildCoords;
         const yLocal = child.y + yInChildCoords;
-        // If parent exist, pass damage report up tree 
-        if (this.parent)
-            this.parent._damageFromChild(this, xLocal, yLocal, wv, hv);
+        this.damageArea(xLocal, yLocal, wv, hv);
     }
     get debugID() { return this._debugID; }
     static _genDebugID() { return DrawnObjectBase._nextDebugID++; }

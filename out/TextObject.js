@@ -89,13 +89,15 @@ export class TextObject extends DrawnObjectBase {
             const text = this._measureText(this.text, this.font, ctx);
             const x = this.padding.w;
             const y = text.baseln + this.padding.h;
-            if (this.renderType === 'fill') {
-                ctx.fillStyle = clr;
-                ctx.fillText(this.text, x, y);
-            }
-            else if (this.renderType === 'stroke') {
-                ctx.strokeStyle = clr;
-                ctx.strokeText(this.text, x, y);
+            switch (this.renderType) {
+                case 'fill':
+                    ctx.fillStyle = clr;
+                    ctx.fillText(this.text, x, y);
+                    break;
+                case 'stroke':
+                    ctx.strokeStyle = clr;
+                    ctx.strokeText(this.text, x, y);
+                    break;
             }
         }
         finally {
