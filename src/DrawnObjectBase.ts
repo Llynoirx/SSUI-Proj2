@@ -114,7 +114,7 @@ export class DrawnObjectBase {
 
             //=== YOUR CODE HERE ===
             this._x = v;
-            this.damageAll();
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }    
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -126,7 +126,7 @@ export class DrawnObjectBase {
         //=== YOUR CODE HERE ===
         if (v !== this._y) {
            this._y = v;
-           this.damageAll();
+           this.damageArea(this.x, this.y, this.w, this.h);
        }
     }
 
@@ -470,8 +470,7 @@ export class DrawnObjectBase {
         // Declare new clipping rectangle
         ctx.beginPath();
         ctx.rect(clipx, clipy, clipw, cliph);
-        ctx.stroke();
-        ctx.closePath();
+        // ctx.closePath();
         ctx.clip();
     }
 
