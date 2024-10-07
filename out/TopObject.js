@@ -72,7 +72,6 @@ export class TopObject extends DrawnObjectBase {
         //=== YOUR CODE HERE ===
         ctx.clearRect(this.x, this.y, this.w, this.h);
         ctx.rect(this.x, this.y, this.w, this.h);
-        ctx.stroke();
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     // Override the _findTop() method so to returns this object as the top we have been

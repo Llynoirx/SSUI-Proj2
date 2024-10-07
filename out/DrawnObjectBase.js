@@ -139,7 +139,7 @@ export class DrawnObjectBase {
             // that could affect the display
             //=== YOUR CODE HERE ===
             this._x = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this.damageAll();
         }
     }
     get y() { return this._y; }
@@ -147,7 +147,7 @@ export class DrawnObjectBase {
         //=== YOUR CODE HERE ===
         if (v !== this._y) {
             this._y = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this.damageAll();
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -161,17 +161,18 @@ export class DrawnObjectBase {
     get w() { return this._w; }
     set w(v) {
         //=== YOUR CODE HERE ===
-        if (this._w !== v) {
-            this._w = SizeConfig.withinConfig(v, this._wConfig);
-            this.damageArea(this.x, this.y, this.w, this.h);
+        let newV = SizeConfig.withinConfig(v, this._wConfig);
+        if (this._w !== newV) {
+            this._w = newV;
+            this.damageAll();
         }
     }
     get wConfig() { return this._wConfig; }
     set wConfig(v) {
         //=== YOUR CODE HERE ===
         if (!(SizeConfig.eq(this._wConfig, v))) {
-            this._wConfig = SizeConfig.fitWithinConfig(v, this._wConfig);
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this._wConfig = v;
+            this.damageAll();
         }
     }
     get naturalW() { return this._wConfig.nat; }
@@ -191,9 +192,10 @@ export class DrawnObjectBase {
     get h() { return this._h; }
     set h(v) {
         //=== YOUR CODE HERE ===
-        if (this._h !== v) {
-            this._h = SizeConfig.withinConfig(v, this._hConfig);
-            this.damageArea(this.x, this.y, this.w, this.h);
+        let newV = SizeConfig.withinConfig(v, this._hConfig);
+        if (this._h !== newV) {
+            this._h = newV;
+            this.damageAll();
         }
     }
     get hConfig() { return this._hConfig; }
@@ -412,7 +414,6 @@ export class DrawnObjectBase {
         // Declare new clipping rectangle
         ctx.beginPath();
         ctx.rect(clipx, clipy, clipw, cliph);
-        // ctx.closePath();
         ctx.clip();
     }
     // Utility routine to create a new rectangular path at our bounding box.
@@ -476,7 +477,6 @@ export class DrawnObjectBase {
         const child = this.children[childIndx];
         ctx.translate(child.x, child.y);
         // reduce clipping region of context object so its within child bounding box
-        // this.makeBoundingBoxPath(ctx);
         this.applyClip(ctx, 0, 0, child.w, child.h);
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

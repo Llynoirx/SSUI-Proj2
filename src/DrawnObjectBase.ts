@@ -114,7 +114,7 @@ export class DrawnObjectBase {
 
             //=== YOUR CODE HERE ===
             this._x = v;
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this.damageAll();
         }
     }    
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -126,7 +126,7 @@ export class DrawnObjectBase {
         //=== YOUR CODE HERE ===
         if (v !== this._y) {
            this._y = v;
-           this.damageArea(this.x, this.y, this.w, this.h);
+           this.damageAll();
        }
     }
 
@@ -146,9 +146,10 @@ export class DrawnObjectBase {
     public get w() : number {return this._w;}
     public set w(v : number) {
         //=== YOUR CODE HERE ===
-        if (this._w !== v) {
-            this._w = SizeConfig.withinConfig(v,this._wConfig)
-            this.damageArea(this.x, this.y, this.w, this.h)
+        let newV = SizeConfig.withinConfig(v,this._wConfig);
+        if (this._w !== newV) {
+            this._w = newV;
+            this.damageAll();
         }
     }
 
@@ -160,8 +161,8 @@ export class DrawnObjectBase {
     public set wConfig(v : SizeConfigLiteral) {
         //=== YOUR CODE HERE ===
         if(!(SizeConfig.eq(this._wConfig, v))){
-            this._wConfig = SizeConfig.fitWithinConfig(v, this._wConfig);
-            this.damageArea(this.x, this.y, this.w, this.h);
+            this._wConfig = v;
+            this.damageAll();
         }
     }
         
@@ -188,9 +189,10 @@ export class DrawnObjectBase {
     public get h() : number {return this._h;}
     public set h(v : number) {
         //=== YOUR CODE HERE ===
-        if(this._h !== v){
-            this._h = SizeConfig.withinConfig(v,this._hConfig)
-            this.damageArea(this.x, this.y, this.w, this.h)
+        let newV = SizeConfig.withinConfig(v,this._hConfig);
+        if(this._h !== newV){
+            this._h = newV;
+            this.damageAll();
         }
     }
 
@@ -203,7 +205,7 @@ export class DrawnObjectBase {
         //=== YOUR CODE HERE ===
         if(!(SizeConfig.eq(this._hConfig, v))){
             this._hConfig = SizeConfig.fitWithinConfig(v, this._hConfig);
-            this.damageArea(this.x, this.y, this.w, this.h)
+            this.damageArea(this.x, this.y, this.w, this.h);
         }
     }
 
@@ -470,7 +472,6 @@ export class DrawnObjectBase {
         // Declare new clipping rectangle
         ctx.beginPath();
         ctx.rect(clipx, clipy, clipw, cliph);
-        // ctx.closePath();
         ctx.clip();
     }
 
@@ -542,7 +543,6 @@ export class DrawnObjectBase {
         ctx.translate(child.x, child.y);
 
         // reduce clipping region of context object so its within child bounding box
-        // this.makeBoundingBoxPath(ctx);
         this.applyClip(ctx, 0, 0, child.w, child.h);
     }
 
