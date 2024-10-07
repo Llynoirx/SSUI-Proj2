@@ -30,9 +30,7 @@ export class Strut extends DrawnObjectBase {
     public override set w(v : number) {
         //=== YOUR CODE HERE ===
         if (this._w !== v) {
-            this._w = v;
-            this.wConfig = SizeConfig.fixed(v);
-            this.damageArea(this.x, this.y, this.w, this.h);
+            super.w = v;
         }
     }
 
@@ -40,9 +38,7 @@ export class Strut extends DrawnObjectBase {
     public override set h(v : number) {
         //=== YOUR CODE HERE ===
         if (this._h !== v) {
-            this._h = v;
-            this.hConfig = SizeConfig.fixed(v);
-            this.damageArea(this.x, this.y, this.w, this.h);
+           super.h = v;
         }
     }
 

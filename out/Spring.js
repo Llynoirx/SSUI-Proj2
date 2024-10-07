@@ -24,16 +24,14 @@ export class Spring extends DrawnObjectBase {
     set w(v) {
         //=== YOUR CODE HERE ===
         if (v !== this._w) {
-            this._w = v;
-            this.damageAll();
+            super.w = v;
         }
     }
     get h() { return super.h; }
     set h(v) {
         //=== YOUR CODE HERE ===
         if (v !== this._h) {
-            this._h = v;
-            this.damageAll();
+            super.h = v;
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

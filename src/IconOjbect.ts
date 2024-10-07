@@ -88,7 +88,9 @@ export class IconObject extends DrawnObjectBase {
     public get resizesImage() {return this._resizesImage;}
     public set resizesImage(v : boolean) {
         //=== YOUR CODE HERE ===
-        this._resizesImage = v;
+        if (v != this._resizesImage){
+            this._resizesImage = v;
+        }
     }
 
     //-------------------------------------------------------------------
@@ -136,7 +138,8 @@ export class IconObject extends DrawnObjectBase {
             ctx.drawImage(img, 0, 0, this.w, this.h);
         } else {
             //=== YOUR CODE HERE ===
-            ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+            this._resize();
+            ctx.drawImage(img, 0, 0, this.w, this.h);
         }
     }
 

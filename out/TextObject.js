@@ -25,22 +25,28 @@ export class TextObject extends DrawnObjectBase {
     get text() { return this._text; }
     set text(v) {
         //=== YOUR CODE HERE ===
-        if (this._text !== v)
+        if (this._text !== v) {
             this._text = v;
+            this.damageAll();
+        }
     }
     get font() { return this._font; }
     set font(v) {
         //=== YOUR CODE HERE ===
-        if (this._font !== v)
+        if (this._font !== v) {
             this._font = v;
+            this.damageAll();
+        }
     }
     get padding() { return this._padding; }
     set padding(v) {
         if (typeof v === 'number')
             v = { w: v, h: v };
         //=== YOUR CODE HERE ===
-        this.w = v.w;
-        this.y = v.h;
+        if (this._padding !== v) {
+            this._padding = v;
+            this.damageAll();
+        }
     }
     get renderType() { return this._renderType; }
     set rederType(v) { this._renderType = v; }
@@ -52,12 +58,9 @@ export class TextObject extends DrawnObjectBase {
     // Recalculate the size of this object based on the size of the text
     _recalcSize(ctx) {
         //=== YOUR CODE HERE ===
-        if (!ctx)
-            return;
-        // Find text width and height
-        const text = this._measureText(this.text, this.font, ctx);
-        this.w = text.w;
-        this.h = text.h;
+        let text = this._measureText(this.text, this.font, ctx);
+        this.w = text.w + this.padding.w * 2;
+        this.h = text.h + this.padding.h * 2;
         // set the size configuration to be fixed at that size
         this.wConfig = SizeConfig.fixed(this.w);
         this.hConfig = SizeConfig.fixed(this.h);

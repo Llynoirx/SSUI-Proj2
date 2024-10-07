@@ -76,7 +76,9 @@ export class IconObject extends DrawnObjectBase {
     get resizesImage() { return this._resizesImage; }
     set resizesImage(v) {
         //=== YOUR CODE HERE ===
-        this._resizesImage = v;
+        if (v != this._resizesImage) {
+            this._resizesImage = v;
+        }
     }
     //-------------------------------------------------------------------
     // Methods
@@ -119,7 +121,8 @@ export class IconObject extends DrawnObjectBase {
         }
         else {
             //=== YOUR CODE HERE ===
-            ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+            this._resize();
+            ctx.drawImage(img, 0, 0, this.w, this.h);
         }
     }
 } // end of IconObject class

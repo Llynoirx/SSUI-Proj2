@@ -27,7 +27,7 @@ export class FilledObject extends DrawnObjectBase {
         if (this._w !== v) {
             this._w = v;
             this._wConfig = SizeConfig.fixed(v);
-            this.damageArea(0, 0, this.w, this.h);
+            this.damageAll();
         }
     }
     get h() { return super.h; }
@@ -36,7 +36,7 @@ export class FilledObject extends DrawnObjectBase {
         if (this._h !== v) {
             this._h = v;
             this._hConfig = SizeConfig.fixed(v);
-            this.damageArea(0, 0, this.w, this.h);
+            this.damageAll();
         }
     }
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .

@@ -36,7 +36,10 @@ export class TextObject extends DrawnObjectBase {
     public get text() {return this._text;}
     public set text(v : string) {
         //=== YOUR CODE HERE ===
-        if (this._text !==v) this._text = v;
+        if (this._text !== v){
+            this._text = v;
+            this.damageAll();
+        }
     }
 
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -69,7 +72,11 @@ export class TextObject extends DrawnObjectBase {
     public get font() {return this._font;}
     public set font(v : string) {
         //=== YOUR CODE HERE ===
-        if (this._font !==v) this._font = v;
+        if (this._font !== v){
+            this._font = v;
+            this.damageAll();
+        }
+    
     }  
     
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -82,8 +89,10 @@ export class TextObject extends DrawnObjectBase {
     public set padding(v : SizeLiteral | number) {
         if (typeof v === 'number') v = {w:v, h:v};
         //=== YOUR CODE HERE ===
-        this.w = v.w; 
-        this.y = v.h;
+        if (this._padding !== v){
+            this._padding = v;
+            this.damageAll();
+        }
     }
     
     //. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -111,13 +120,10 @@ export class TextObject extends DrawnObjectBase {
     // Recalculate the size of this object based on the size of the text
     protected _recalcSize(ctx? : DrawContext) : void {
         //=== YOUR CODE HERE ===
-        if (!ctx) return;
-
-        // Find text width and height
-        const text = this._measureText(this.text, this.font, ctx);
-        this.w = text.w;
-        this.h = text.h;
-
+        let text =  this._measureText(this.text, this.font, ctx);
+        this.w = text.w + this.padding.w*2;
+        this.h = text.h + this.padding.h*2;
+        
         // set the size configuration to be fixed at that size
         this.wConfig = SizeConfig.fixed(this.w);
         this.hConfig = SizeConfig.fixed(this.h);
@@ -164,7 +170,7 @@ export class TextObject extends DrawnObjectBase {
                 ctx.strokeStyle = clr;
                 ctx.strokeText(this.text, x ,y);
                 break;
-            }
+             }
 
         }   finally {
             // restore the drawing context to the state it was given to us in
